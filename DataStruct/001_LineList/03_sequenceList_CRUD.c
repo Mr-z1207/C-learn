@@ -16,6 +16,12 @@ void InitSqList(SqList *L){
     L->length = 0;
 }
 
+void PrintList(SqList L){
+    for(int i = 0; i < L.length; i++)
+        printf("data[%d] = %d \n", i, L.data[i]);
+    printf("结束 \n\n");
+}
+
 /* 函数名：ListInsert
 *  作用：  在第i个位置，插入元素e
 *  参数：  SqList *L： 待操作顺序表
@@ -61,6 +67,32 @@ bool ListDelet(SqList *L, int i, int *e){
     return true;
 }
 
+/* 函数名：GetElem
+*  作用：  查找第i个位置的元素
+*  参数：  SqList L： 待查找顺序表
+*          int i： 第i个位置
+*  返回值： 元素值
+*/
+int GetElem(SqList L, int i){
+    return L.data[i-1];
+}
+
+/* 函数名：GetElemForValue
+*  作用：  按值查找
+*  参数：  SqList L： 待查找顺序表
+*          int i： 查找的值
+*  返回值： 元素索引序号
+*/
+int GetElemForValue(SqList L, int i){
+    int e = -1;
+    for(int k = 0; k < L.length; k++){
+        if (L.data[k] == i){
+            e = k;
+        }
+    }
+    return e;
+}
+
 // 主函数
 int main(){
     SqList L;
@@ -69,21 +101,16 @@ int main(){
 
     // 插入元素
     ListInsert(&L, 1, 2);
-    for(int i = 0; i < L.length; i++)
-        printf("添加第一个：data[%d] = %d \n", i, L.data[i]);
-    printf("第一次插入结束 \n\n");
 
     // 插入元素
     ListInsert(&L, 2, 5);
-    for(int i = 0; i < L.length; i++)
-        printf("添加第二个：data[%d] = %d \n", i, L.data[i]);
-    printf("第二次插入结束 \n\n");
+
+    PrintList(L);
 
     // 插入元素
     ListInsert(&L, 2, 8);
-    for(int i = 0; i < L.length; i++)
-        printf("添加第二个：data[%d] = %d \n", i, L.data[i]);
-    printf("第三次插入结束 \n\n");
+
+    PrintList(L);
 
     // 删除元素
     int e = -1;  // 用来存放删除的数据
@@ -92,11 +119,13 @@ int main(){
     else
         printf("删除失败");
     
-    for(int i = 0; i < L.length; i++)
-        printf("删除第二个：data[%d] = %d \n", i, L.data[i]);
-    printf("删除结束 \n\n");
-    // 修改元素
+    PrintList(L);
 
     // 查找元素
+    // --按位查找
+    printf("按位查找结果：%d \n", GetElem(L, 2));
+    // --按值查找
+    printf("按值查找结果：%d \n", GetElemForValue(L, 2));
+
     return 0;
 }
